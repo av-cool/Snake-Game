@@ -13,7 +13,6 @@ The left wall is connected to the right wall and the top wall is connected to th
 
 # How to run the code and play
 #1 Clone the code or download it. Open the snake game file in Processing IDE. Aavailable in www.processing.org. Hit on run and enjoy.  
-  
 #2 Also can use the p5 online editor. just google it. Copy all the .js files and hit the run button.  
 
 # Future Work
