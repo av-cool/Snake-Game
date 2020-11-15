@@ -1,6 +1,6 @@
 class World {
   constructor() {
-    this.rez = 20;
+    this.rez = 50;
     this.w = 600;
     this.h = 600;
     this.col = floor(this.w/this.rez);
@@ -64,7 +64,7 @@ class World {
     fill(0,0,255);
     noStroke();
     for(let i in this.walls) {
-      rect(this.walls[i].x, this.walls[i].y, 1, 1);
+      rect(this.walls[i].x * this.rez, this.walls[i].y * this.rez, this.rez, this.rez);
     }
   }
     

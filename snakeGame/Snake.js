@@ -1,11 +1,12 @@
 class Snake {
- constructor() {
-   this.body = [];
-   this.body[0] = createVector(0,0);
-   this.xdir = 1;
-   this.ydir = 0;
+ constructor(world) {
+   this.world      = world;
+   this.body       = [];
+   this.body[0]    = createVector(0,0);
+   this.xdir       = 1;
+   this.ydir       = 0;
    this.pathVector = [];
-   this.pointer = 0;
+   this.pointer    = 0;
  }
  
  grow(pos) {
@@ -23,22 +24,22 @@ class Snake {
    return false;
  }
  
- endGame(world) {
+ endGame() {
    let x = this.body[0].x;
    let y = this.body[0].y;
-   //if(x < 0 || x > world.col-1 || y < 0 || y > world.row-1) {return true;}//
+   //if(x < 0 || x > this.world.col-1 || y < 0 || y > this.world.row-1) {return true;}//
    for(let i = 1; i < this.body.length; i++) {
      let part = this.body[i];
      if(abs(part.x - x) < 0.0001 && abs(part.y - y) < 0.0001) {return true;}
    }
-   for(let i in world.walls) {
-     let wall = world.walls[i];
+   for(let i in this.world.walls) {
+     let wall = this.world.walls[i];
      if(abs(wall.x - x) < 0.0001 && abs(wall.y - y) < 0.0001) {return true;}
    }
    return false;
  }
  
- update(world) {
+ update() {
    let len = this.body.length;
    for(let i = len-1; i >= 1; i--) {
      this.body[i] = this.body[i-1].copy();
@@ -48,14 +49,13 @@ class Snake {
    
    //This part is for the World to be a donut topology
    
-   if(this.body[0].x < 0) {this.body[0].x = world.col-1;}
-   if(this.body[0].x > world.col-1) {this.body[0].x = 0;}
-   if(this.body[0].y < 0) {this.body[0].y = world.row-1;}
-   if(this.body[0].y > world.row-1) {this.body[0].y = 0;}
+   if(this.body[0].x < 0) {this.body[0].x = this.world.col -1;}
+   if(this.body[0].x > this.world.col-1) {this.body[0].x = 0;}
+   if(this.body[0].y < 0) {this.body[0].y = this.world.row-1;}
+   if(this.body[0].y > this.world.row-1) {this.body[0].y = 0;}
  }
  setPathVector(pathV) {
    for(let i in pathV) {
-     
      this.pathVector.push(pathV[i]);
    }
  }
@@ -78,7 +78,9 @@ class Snake {
    noStroke();
    let len = this.body.length;
    for(let i in this.body) {
-     rect(this.body[i].x, this.body[i].y, 1, 1);
+     let x = this.body[i].x * this.world.rez;
+     let y = this.body[i].y * this.world.rez;
+     rect(x, y, this.world.rez, this.world.rez);
    }
  }
 }
